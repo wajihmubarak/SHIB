@@ -207,7 +207,7 @@ nav{ position:fixed; bottom:0; width:100%; display:flex; background:rgba(10,10,2
 
 <div id="withdraw" class="page">
     <div class="card">
-        <h3 style="margin-bottom: 20px; text-align: center;">سحب الأرباح (USDT)</h3>
+        <h3 style="margin-bottom: 20px; text-align: center;">سحب الأرباح (SHIB)</h3>
         
         <div style="background: rgba(243, 186, 47, 0.1); border: 1px solid var(--gold); border-radius: 15px; padding: 15px; text-align: center; margin-bottom: 20px;">
             <i class="fas fa-shield-alt" style="color: var(--gold); font-size: 20px; margin-bottom: 8px; display: block;"></i>
@@ -224,7 +224,7 @@ nav{ position:fixed; bottom:0; width:100%; display:flex; background:rgba(10,10,2
             <input type="number" id="w_amount" placeholder="ادخل مبلغ السحب ($)" style="padding-left:40px; height: 55px; border-radius: 15px;">
         </div>
 
-        <button onclick="executeWithdraw()" style="height: 55px; font-size: 16px;">تأكيد سحب USDT</button>
+        <button onclick="executeWithdraw()" style="height: 55px; font-size: 16px;">تأكيد السحب</button>
         
         <p style="text-align: center; color: #666; font-size: 11px; margin-top: 15px;">
             * يرجى التأكد من أن العنوان يدعم شبكة <b>Binance Smart Chain</b>
@@ -290,33 +290,21 @@ nav{ position:fixed; bottom:0; width:100%; display:flex; background:rgba(10,10,2
 
 <div id="profile" class="page">
     
-    <div class="card" style="text-align:center; padding:35px 20px; background: linear-gradient(145deg, rgba(243,186,47,0.15) 0%, rgba(7,10,18,1) 100%); border: 1px solid var(--gold); border-radius: 25px; box-shadow: 0 15px 35px rgba(0,0,0,0.5);">
-        
-        <div style="position:relative; display:inline-block;">
-            <img src="https://ui-avatars.com/api/?name=Wajih&background=f3ba2f&color=070A12&size=128" 
-                 style="width:95px; height:95px; border-radius:50%; border:3px solid var(--gold); padding:4px; filter: drop-shadow(0 0 10px rgba(243,186,47,0.4));">
-            <div style="position:absolute; bottom:5px; right:5px; background:var(--gold); width:24px; height:24px; border-radius:50%; display:flex; align-items:center; justify-content:center; border:2px solid var(--bg);">
-                <i class="fas fa-check" style="font-size:10px; color:#000;"></i>
-            </div>
-        </div>
-
-        <h2 style="color:var(--text); margin-top:15px; font-weight:900; letter-spacing:1px;">@suui_7</h2>
-        <p style="color:var(--gold); font-size:12px; font-weight:bold; margin-top:5px;">
-            <i class="fas fa-crown"></i> عضوية VIP بريميوم
-        </p>
-
-        <div style="margin-top:20px; display:flex; justify-content:center; gap:20px; border-top:1px solid var(--stroke); padding-top:20px;">
-            <div>
-                <small style="color:#666; display:block; font-size:10px;">إجمالي السحب</small>
-                <b style="color:#fff;">$0.00</b>
-            </div>
-            <div style="width:1px; background:var(--stroke); height:30px;"></div>
-            <div>
-                <small style="color:#666; display:block; font-size:10px;">رصيد متاح</small>
-                <b style="color:var(--gold);">$0.00</b>
-            </div>
-        </div>
+    <div class="card" style="text-align:center; padding:30px 20px; border: 1px solid var(--gold); border-radius: 25px;">
+    
+    <div id="avatar" style="width:90px; height:90px; border-radius:50%; border:3px solid var(--gold); margin:0 auto; overflow:hidden; background:rgba(243,186,47,0.1); display:flex; align-items:center; justify-content:center;">
+        <i class="fas fa-user" style="font-size:40px; color:var(--gold);"></i>
     </div>
+
+    <h2 id="p_name" style="color:var(--text); margin-top:15px; font-weight:900;">جاري التحميل...</h2>
+    
+    <div style="display:flex; justify-content:center; gap:10px; margin-top:5px;">
+        <span id="p_username" style="color:var(--gold); font-size:12px; font-weight:bold;">@username</span>
+        <span style="color:#444;">|</span>
+        <span id="p_id" style="color:#666; font-size:12px;">ID: 000000</span>
+    </div>
+</div>
+
 
     <div class="card" style="padding:10px; border-radius:20px;">
     
@@ -402,7 +390,7 @@ function executeWithdraw() {
     const newEntry = `
         <div class="coin-item" style="border-bottom: 1px solid var(--stroke); padding: 12px 0;">
             <div>
-                <div style="font-size:14px; font-weight:bold;">سحب USDT (BEP20)</div>
+                <div style="font-size:14px; font-weight:bold;">سحب SHIB (BEP20)</div>
                 <small style="color:var(--gold);">جاري معالجة المعاملة...</small>
             </div>
             <div style="text-align:left;"><b>$${parseFloat(amnt).toLocaleString()}</b></div>
