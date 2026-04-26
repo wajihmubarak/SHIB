@@ -4,6 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SHIBA PROFIT | Pro UI</title>
+<head>
+    <meta charset="UTF-8">
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
@@ -289,21 +293,16 @@ nav{ position:fixed; bottom:0; width:100%; display:flex; background:rgba(10,10,2
 
 
 <div id="profile" class="page">
-    
-    <div class="card" style="text-align:center; padding:30px 20px; border: 1px solid var(--gold); border-radius: 25px;">
-    
-    <div id="avatar" style="width:90px; height:90px; border-radius:50%; border:3px solid var(--gold); margin:0 auto; overflow:hidden; background:rgba(243,186,47,0.1); display:flex; align-items:center; justify-content:center;">
-        <i class="fas fa-user" style="font-size:40px; color:var(--gold);"></i>
-    </div>
+    <div class="card" style="text-align:center;">
+        <div id="avatar" style="width:90px; height:90px; border-radius:50%; margin:0 auto; overflow:hidden;">
+            </div>
 
-    <h2 id="p_name" style="color:var(--text); margin-top:15px; font-weight:900;">جاري التحميل...</h2>
-    
-    <div style="display:flex; justify-content:center; gap:10px; margin-top:5px;">
-        <span id="p_username" style="color:var(--gold); font-size:12px; font-weight:bold;">@username</span>
-        <span style="color:#444;">|</span>
-        <span id="p_id" style="color:#666; font-size:12px;">ID: 000000</span>
+        <h2 id="p_name">جاري التحميل...</h2>
+        <p id="p_username" style="color:var(--gold);">@username</p>
+        <small id="p_id" style="color:#666;">ID: 000000</small>
     </div>
 </div>
+
 
 
     <div class="card" style="padding:10px; border-radius:20px;">
