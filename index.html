@@ -482,6 +482,49 @@ function select(el){
     document.querySelectorAll('.method').forEach(m=>m.classList.remove('active'));
     el.classList.add('active');
 }
+    function loadTelegramUserData() {
+    // 1. الوصول لبيانات المستخدم من تلجرام
+    let tg = window.Telegram.WebApp;
+    tg.ready(); // إبلاغ تلجرام أن التطبيق جاهز
+    
+    let user = tg.initDataUnsafe?.user || {};
+
+    // 2. تحديث الصورة (لو في صورة حقيقية يعرضها، لو مافي يصنع لوجو ذهبي بالحروف)
+    const avatarContainer = document.getElementById("avatar");
+    if (user.photo_url) {
+        avatarContainer.innerHTML = `<img src="${user.photo_url}" style="width:100%; height:100%; object-fit:cover;">`;
+    } else if (user.first_name) {
+        // صنع صورة افتراضية فخمة بأول حرف من الاسم
+        const letter = user.first_name.charAt(0).toUpperCase();
+        avatarContainer.innerHTML = `<span style="font-size:35px; font-weight:900; color:var(--gold);">${letter}</span>`;
+    }
+
+    // 3. تحديث الاسم (عرض الاسم الأول والأخير)
+    if (document.getElementById("p_name")) {
+        let fullName = user.first_name || "مستخدم نظام";
+        if (user.last_name) fullName += " " + user.last_name;
+        document.getElementById("p_name").innerText = fullName;
+    }
+    
+    // 4. تحديث اليوزر نيم
+    if (document.getElementById("p_username")) {
+        document.getElementById("p_username").innerText = user.username ? "@" + user.username : "@user_private";
+    }
+    
+    // 5. تحديث الـ ID
+    if (document.getElementById("p_id")) {
+        document.getElementById("p_id").innerText = "ID: " + (user.id || "000000");
+    }
+
+    // إرسال تنبيه بسيط للترحيب
+    if(user.first_name) {
+        console.log("Welcome user:", user.id);
+    }
+}
+
+// استدعاء الدالة فور تشغيل التطبيق
+window.onload = loadTelegramUserData;
+
 </script>
 </body>
 </html>
