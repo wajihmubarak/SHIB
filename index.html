@@ -206,6 +206,60 @@ nav{ position:fixed; bottom:0; width:100%; display:flex; background:rgba(10,10,2
     </div>
 </div>
 
+    <div id="tasks" class="page">
+    <div class="card" style="text-align:center; background:linear-gradient(135deg, rgba(243,186,47,0.1), transparent); border-bottom: 2px solid var(--gold);">
+        <i class="fas fa-coins" style="font-size:40px; color:var(--gold); margin-bottom:10px;"></i>
+        <h2>مركز المهام</h2>
+        <p style="color:#aaa; font-size:12px;">أكمل المهام البسيطة لزيادة رصيدك</p>
+    </div>
+
+    <div class="card task-card" id="task_tg_1">
+        <div style="display:flex; align-items:center; justify-content:space-between;">
+            <div style="display:flex; align-items:center; gap:15px;">
+                <div style="width:45px; height:45px; border-radius:12px; background:rgba(36, 161, 222, 0.1); display:flex; align-items:center; justify-content:center;">
+                    <i class="fab fa-telegram-plane" style="color:#24A1DE; font-size:20px;"></i>
+                </div>
+                <div>
+                    <span style="font-weight:bold; display:block; font-size:14px;">انضم لقناتي 2</span>
+                    <small style="color:var(--gold); font-weight:900;">+250 SHIB</small> </div>
+            </div>
+            <button onclick="startTask('https://t.me/RR99PP', 'task_tg_1', 250)" style="width:80px; padding:8px; font-size:12px;">إكمال</button>
+        </div>
+    </div>
+
+    <div class="card task-card" id="task_tg_2">
+        <div style="display:flex; align-items:center; justify-content:space-between;">
+            <div style="display:flex; align-items:center; gap:15px;">
+                <div style="width:45px; height:45px; border-radius:12px; background:rgba(36, 161, 222, 0.1); display:flex; align-items:center; justify-content:center;">
+                    <i class="fab fa-telegram-plane" style="color:#24A1DE; font-size:20px;"></i>
+                </div>
+                <div>
+                    <span style="font-weight:bold; display:block; font-size:14px;">انضم لقناتي</span>
+                    <small style="color:var(--gold); font-weight:900;">+250 SHIB</small> </div>
+            </div>
+            <button onclick="startTask('https://t.me/Cristiano_Ronaldo_sui_7', 'task_tg_2', 150)" style="width:80px; padding:8px; font-size:12px;">إكمال</button>
+        </div>
+    </div>
+
+    <div class="card task-card" id="task_x">
+        <div style="display:flex; align-items:center; justify-content:space-between;">
+            <div style="display:flex; align-items:center; gap:15px;">
+                <div style="width:45px; height:45px; border-radius:12px; background:rgba(255, 255, 255, 0.05); display:flex; align-items:center; justify-content:center;">
+                    <i class="fab fa-x-twitter" style="color:#fff; font-size:20px;"></i>
+                </div>
+                <div>
+                     <span style="font-weight:bold; display:block; font-size:14px;">تابعنا على تيك توك</span>
+                    <small style="color:var(--gold); font-weight:900;">+250 SHIB</small>
+                </div>
+            </div>
+            <button onclick="startTask('https://tiktok.com/@wajih_mubarak', 'task_tiktok', 100)" style="width:80px; padding:8px; font-size:12px;">إكمال</button>
+        </div>
+    </div>
+
+    <p style="text-align:center; color:#444; font-size:11px;">يتم تحديث المهام تلقائياً كل 24 ساعة</p>
+</div>
+
+
 <div id="withdraw" class="page">
     <div class="card">
         <h3 style="margin-bottom: 20px; text-align: center;">سحب الأرباح (SHIB)</h3>
@@ -367,6 +421,27 @@ nav{ position:fixed; bottom:0; width:100%; display:flex; background:rgba(10,10,2
 window.onload = function() {
     initTelegram();
 };
+function doTask(url, taskId, reward) {
+    // 1. فتح رابط المهمة في صفحة جديدة
+    window.open(url, '_blank');
+
+    // 2. تغيير حالة الزر لـ "تحقق"
+    const taskDiv = document.getElementById(taskId);
+    const btn = taskDiv.querySelector('button');
+    btn.innerText = "جاري التحقق...";
+    btn.style.background = "#555";
+    btn.disabled = true;
+
+    // 3. محاكاة التحقق (في السيستم الحقيقي الربط يكون مع البوت)
+    setTimeout(() => {
+        btn.innerText = "تمت بنجاح ✅";
+        btn.style.background = "linear-gradient(135deg, #00ff88, #00cc6a)";
+        notify(`مبروك! حصلت على ${reward} SHIB`, 'fa-coins');
+        
+        // هنا مستقبلاً نحدث رصيد المستخدم في قاعدة البيانات
+        console.log(`User ID: ${window.Telegram.WebApp.initDataUnsafe?.user?.id} earned ${reward}`);
+    }, 5000); // التحقق بعد 5 ثواني
+}
 
     </script>
 </div>
@@ -382,12 +457,38 @@ window.onload = function() {
 
 <nav>
     <div class="nav active" onclick="go('home',this)"><i class="fas fa-home"></i>الرئيسية</div>
-    <div class="nav" onclick="go('ref',this)"><i class="fas fa-link"></i>الإحالة</div>
+    <div class="nav" onclick="go('tasks',this)"><i class="fas fa-tasks"></i>المهام</div> <div class="nav" onclick="go('ref',this)"><i class="fas fa-link"></i>الإحالة</div>
     <div class="nav" onclick="go('withdraw',this)"><i class="fas fa-wallet"></i>السحب</div>
     <div class="nav" onclick="go('profile',this)"><i class="fas fa-user"></i>الملف</div>
 </nav>
 
+
 <script>
+function startTask(url, taskId, reward) {
+    // 1. فتح الرابط
+    window.open(url, '_blank');
+
+    // 2. تغيير الزر لـ "تحقق" بعد 5 ثواني
+    const taskCard = document.getElementById(taskId);
+    const btn = taskCard.querySelector('button');
+    
+    btn.innerText = "جاري التحقق..";
+    btn.style.background = "#333";
+    btn.disabled = true;
+
+    // محاكاة التحقق (بعد 7 ثواني يدي المكافأة)
+    setTimeout(() => {
+        btn.innerText = "تمت بنجاح ✅";
+        btn.style.background = "linear-gradient(135deg, #00ff88, #00cc6a)";
+        btn.style.color = "#000";
+        
+        notify(`مبروك! حصلت على ${reward} SHIB`, 'fa-check-circle');
+        
+        // هنا مستقبلاً نرسل الطلب لـ Firebase لتحديث رصيد الـ User ID الحقيقي
+        console.log(`Task Complete: ${taskId} for User: ${window.Telegram.WebApp.initDataUnsafe?.user?.id}`);
+    }, 7000);
+}
+
 // دوال الإشعارات let selectedType = "Binance ID";// دالة السحب المحدثة
 function executeWithdraw() {
     const addr = document.getElementById('w_address').value;
