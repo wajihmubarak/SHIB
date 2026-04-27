@@ -263,7 +263,8 @@ nav{ position:fixed; bottom:0; width:100%; display:flex; background:rgba(10,10,2
     <div class="card">
         <h3 style="font-size:15px; margin-bottom:12px;"><i class="fas fa-gift"></i> كود الدعوة الخاص بك</h3>
         <div style="display:flex; gap:10px; align-items:center;">
-            <input id="refCode" value="SHIBCR7" readonly style="flex:1; font-weight:900; color:var(--gold); letter-spacing:2px; text-align:center; border-style:dashed;">
+          <input id="refCode" value="https://t.me/SHIBProfitbot?start=..." readonly style="text-align:center; border-style:dashed; font-size: 11px;">
+
             <button onclick="copyCode()" style="width:80px; padding:12px 0;">نسخ</button>
         </div>
     </div>
@@ -333,33 +334,34 @@ nav{ position:fixed; bottom:0; width:100%; display:flex; background:rgba(10,10,2
 
     <script>
         function initTelegram() {
-    // 1. استدعاء أداة التلجرام
     const tg = window.Telegram.WebApp;
-    tg.ready(); // إبلاغ تلجرام أن الصفحة جاهزة
-
-    // 2. سحب بيانات المستخدم
+    tg.ready();
     const user = tg.initDataUnsafe?.user || {};
 
-    // 3. تحديث الاسم الكامل
+    // --- الجزء الخاص بسحب البيانات (زي ما هو) ---
     if(user.first_name) {
         document.getElementById('p_name').innerText = user.first_name + (user.last_name ? " " + user.last_name : "");
     }
-
-    // 4. تحديث اليوزر والـ ID
     document.getElementById('p_username').innerText = user.username ? "@" + user.username : "@user_pro";
     document.getElementById('p_id').innerText = "ID: " + (user.id || "00000000");
 
-    // 5. تحديث الصورة أو صنع لوجو ذهبي بالحروف (زي WA في صورتك)
+    // --- الجزء الجديد الخاص برابط الدعوة ---
+    if(user.id) {
+        // هنا بنركب الأيدي بتاع المستخدم في نهاية رابط البوت
+        const inviteLink = `https://t.me/SHIBProfitbot?start=${user.id}`;
+        document.getElementById('refCode').value = inviteLink;
+    }
+
+    // تحديث الصورة (زي ما هي)
     const avatarDiv = document.getElementById('avatar');
     if (user.photo_url) {
-        // لو عنده صورة حقيقية في تلجرام تظهر هنا
         avatarDiv.innerHTML = `<img src="${user.photo_url}" style="width:100%; height:100%; object-fit:cover;">`;
     } else {
-        // لو ما عنده صورة، السيستم بياخد أول حرف من اسمه ويخليه ذهبي
         const letter = (user.first_name || "W").charAt(0).toUpperCase();
         avatarDiv.innerHTML = `<span style="font-size:35px; font-weight:900; color:var(--gold);">${letter}</span>`;
     }
 }
+
 
 // 6. تشغيل الدالة فور تحميل النافذة
 window.onload = function() {
